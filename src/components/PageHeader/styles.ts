@@ -10,13 +10,18 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: "space-between",
     },
-    title:{
+    title: {
         fontFamily: 'Archivo-Bold',
         color: '#FFF',
         fontSize: 24,
         lineHeight: 32,
         maxWidth: 160,
         marginVertical: 40,
+    },
+    header: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
     }
 });
 
