@@ -8,26 +8,34 @@ import giveClassesIcon from '../../assets/images/icons/give-classes.png';
 import heartIcon from '../../assets/images/icons/heart.png';
 import { useNavigation } from '@react-navigation/native';
 import api from '../../services/api';
+import AsyncStorage from '@react-native-community/async-storage';
+import { useContext } from 'react';
+import { AuthContext } from '../../contexts/Authprovider';
 
 function Landing() {
 
+    const { setOnboardingTrue } = useContext(AuthContext);
     const navigation = useNavigation();
     const [totalConnections, setTotalConnections] = useState(0);
 
-    useEffect(()=>{
-        api.get('connections').then(response=>{
-            const {total} = response.data;
+
+    useEffect(() => {
+        api.get('connections').then(response => {
+            const { total } = response.data;
             setTotalConnections(total);
         })
-    },[]);
+    }, []);
 
-    function handleNavigateToGiveClasses() {
+    async function handleNavigateToGiveClasses() {
 
-        navigation.navigate('GiveClasses');
+        await setOnboardingTrue();
+        //navigation.navigate('GiveClasses');
     }
+
     function handleNavigateToStudyPages() {
         navigation.navigate('StudyTabs');
     }
+
     return (
         <View style={styles.container}>
 
