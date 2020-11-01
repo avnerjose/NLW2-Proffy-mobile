@@ -28,6 +28,7 @@ function TeacherList() {
                 setFavorites(favoritedTeachersIds);
             }
         });
+        AsyncStorage.removeItem('onboard');
     }
     useFocusEffect(() => {
         LoadFavorites();
