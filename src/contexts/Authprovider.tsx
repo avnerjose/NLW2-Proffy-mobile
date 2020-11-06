@@ -3,7 +3,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 interface AuthContextData {
     hasOnboarded: boolean | null,
-    setOnboardingTrue(): void,
+    setOnboarding: (Value: boolean) => void,
 }
 
 export const AuthContext = createContext({} as AuthContextData);
@@ -21,21 +21,21 @@ const AuthProvider: React.FC = ({ children }) => {
             if (!!response) {
                 const onBoard = JSON.parse(response);
                 setOnboard(onBoard.hasOnboarded);
-            }else{
+            } else {
                 setOnboard(false);
             }
         });
     }
 
-    async function setOnboardingFalse() {
+    async function setOnboarding(Value: boolean) {
         await AsyncStorage.setItem('hasOnboarded', JSON.stringify({
-            hasOnboarded: false,
+            hasOnboarded: Value,
         }));
         loadOnboard();
     }
 
     return (
-        <AuthContext.Provider value={{ hasOnboarded: onboard, setOnboardingTrue: setOnboardingFalse }}>
+        <AuthContext.Provider value={{ hasOnboarded: onboard, setOnboarding: setOnboarding }}>
             { children}
         </AuthContext.Provider >
     );
