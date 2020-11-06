@@ -8,6 +8,7 @@ import TeacherItem, { Teacher } from '../../components/TeacherItem';
 import api from '../../services/api';
 import styles from './styles';
 import { useFocusEffect } from '@react-navigation/native';
+import DropDownPicker from 'react-native-dropdown-picker';
 
 function TeacherList() {
     const [isFiltersVisible, setIsFiltersVisible] = useState(true);
@@ -63,12 +64,28 @@ function TeacherList() {
                 {isFiltersVisible &&
                     <View style={styles.searchForm}>
                         <Text style={styles.label}>Matéria</Text>
-                        <TextInput
-                            placeholderTextColor="#c1bccc"
+                        <DropDownPicker
+
+                            items={[
+                                { label: 'Artes', value: 'Artes' },
+                                { label: 'Biologia', value: 'Biologia' },
+                                { label: 'Ciências', value: 'Ciências' },
+                                { label: 'Eduação Física', value: 'Eduação Física' },
+                                { label: 'Física', value: 'Física' },
+                                { label: 'Geografia', value: 'Geografia' },
+                                { label: 'História', value: 'História' },
+                                { label: 'Matemática', value: 'Matemática' },
+                                { label: 'Português', value: 'Português' },
+                                { label: 'Química', value: 'Química' },
+                            ]}
+                            placeholder="Selecione"
+                            containerStyle={{ height: 40 }}
                             style={styles.input}
-                            value={subject}
-                            placeholder="Qual a matéria?"
-                            onChangeText={text => setSubject(text)}
+                            itemStyle={{
+                                justifyContent: 'flex-start'
+                            }}
+                            dropDownStyle={{ backgroundColor: '#fafafa' }}
+                            onChangeItem={item => setSubject(item.value)}
                         />
                         <View style={styles.inputGroup}>
                             <View style={styles.inputBlock}>
