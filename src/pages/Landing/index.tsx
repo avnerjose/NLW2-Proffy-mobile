@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Image, Text } from 'react-native';
+import { View, Image, Text, TouchableOpacity } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler'
 import styles from './styles'
 import LandingImage from '../../assets/images/landing.png';
@@ -8,13 +8,12 @@ import giveClassesIcon from '../../assets/images/icons/give-classes.png';
 import heartIcon from '../../assets/images/icons/heart.png';
 import { useNavigation } from '@react-navigation/native';
 import api from '../../services/api';
-import AsyncStorage from '@react-native-community/async-storage';
 import { useContext } from 'react';
 import { AuthContext } from '../../contexts/Authprovider';
 
 function Landing() {
 
-    const { setOnboardingTrue } = useContext(AuthContext);
+    const { setOnboarding } = useContext(AuthContext);
     const navigation = useNavigation();
     const [totalConnections, setTotalConnections] = useState(0);
 
@@ -28,7 +27,7 @@ function Landing() {
 
     async function handleNavigateToGiveClasses() {
 
-        await setOnboardingTrue();
+        await setOnboarding(false);
         //navigation.navigate('GiveClasses');
     }
 
@@ -38,6 +37,20 @@ function Landing() {
 
     return (
         <View style={styles.container}>
+
+            <View style={styles.headerView}>
+                <TouchableOpacity style={styles.headerProfileView}>
+                    <Image
+                        style={styles.headerProfileImage}
+                        source={{
+                            uri: 'https://avatars3.githubusercontent.com/u/49520658?s=460&v=4',
+                        }} />
+                    <Text style={styles.headerProfileText}>Avner José</Text>
+                </TouchableOpacity>
+                <RectButton>
+                    <Image source={require('../../assets/images/logout.png')} />
+                </RectButton>
+            </View>
 
             <Image style={styles.banner} source={LandingImage} />
 
